@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -30,11 +29,11 @@
  * See: https://www.moodlebites.com/mod/page/view.php?id=24546
  */
 
-// General
+// General.
 $string['pluginname'] = 'Super frame';
 $string['welcomeuser'] = 'Welcome {$a->firstname} {$a->lastname}';
 
-// Capability strings
+// Capability strings.
 $string['superframe:addinstance'] = 'Add a new Super frame block';
 $string['superframe:myaddinstance'] = 'Add a new Super frame block to my moodle';
 
