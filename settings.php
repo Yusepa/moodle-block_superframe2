@@ -57,5 +57,7 @@ if ($ADMIN->fulltree) {
     $pagelayoutoptions['course'] = get_string('course');
     $pagelayoutoptions['popup'] = get_string('popup');
     $settings->add(new admin_setting_configselect('block_superframe/pagelayout',
-        get_string('pagelayout', 'block_superframe'), get_string('pagelayout_details', 'block_superframe'),'course',$pagelayoutoptions));
+        get_string('pagelayout', 'block_superframe'),
+        get_string('pagelayout_details',
+        'block_superframe'), 'course', $pagelayoutoptions));
 }
