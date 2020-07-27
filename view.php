@@ -31,6 +31,9 @@ $PAGE->set_pagelayout($defconfig->pagelayout);
 $PAGE->set_title(get_string('pluginname', 'block_superframe'));
 $PAGE->navbar->add(get_string('pluginname', 'block_superframe'));
 require_login();
+// Check the users permissions to see the view page.
+$context = context_block::instance($blockid);
+require_capability('block/superframe:seeviewpage', $context);
 
 // Get the instance configuration data from the database.
 // It's stored as a base 64 encoded serialized string.
