@@ -32,6 +32,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
+
     // User can add to Dashboard.
     'block/superframe:myaddinstance' => array(
         'captype' => 'write',
@@ -55,16 +56,15 @@ $capabilities = array(
 
         'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
-
-    // Restrict access to view page.
+     // Restrict access to view page.
     'block/superframe:seeviewpage' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_COURSE,
         'archetypes' => array(
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
-            'student' => CAP_PREVENT,
+            'student' => CAP_ALLOW,
             'guest' => CAP_PREVENT
         )
-    ),
+    )
 );

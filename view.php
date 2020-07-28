@@ -22,15 +22,18 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require('../../config.php');
+global $USER;
 $blockid = required_param('blockid', PARAM_INT);
-$defconfig = get_config('block_superframe');
+$def_config = get_config('block_superframe');
 $PAGE->set_course($COURSE);
 $PAGE->set_url('/blocks/superframe/view.php');
 $PAGE->set_heading($SITE->fullname);
 $PAGE->set_pagelayout($defconfig->pagelayout);
 $PAGE->set_title(get_string('pluginname', 'block_superframe'));
 $PAGE->navbar->add(get_string('pluginname', 'block_superframe'));
+
 require_login();
+
 // Check the users permissions to see the view page.
 $context = context_block::instance($blockid);
 require_capability('block/superframe:seeviewpage', $context);
@@ -45,19 +48,9 @@ if ($configdata) {
 } else {
     // No instance data, use admin settings.
     // However, that only specifies height and width, not size.
-    $config = $defconfig;
-    $config->size = 'custom';
+   $config = $defconfig;
+   $config->size = 'custom';
 }
-
-// Start output to browser.
-echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('pluginname', 'block_superframe'), 5);
-
-// Content.
-echo '<br>' . fullname($USER) . '<br>';
-echo $OUTPUT->user_picture($USER);
-
-echo '<br><br>';
 
 // URL - comes either from instance or admin.
 $url = $config->url;
@@ -80,6 +73,15 @@ switch ($config->size) {
         $height = 720;
         break;
 }
+
+// Start output to browser.
+echo $OUTPUT->header();
+echo $OUTPUT->heading(get_string('pluginname', 'block_superframe'), 5);
+// Dummy content.
+echo '<br>' . fullname($USER) . '<br>';
+echo '<br>' . $OUTPUT->user_picture($USER) . '<br>';
+
+echo '<br>';
 
 // Build and display an iframe.
 $attributes = ['src' => $url,

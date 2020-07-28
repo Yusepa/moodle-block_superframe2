@@ -30,7 +30,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-
+require_once("$CFG->libdir/formslib.php");
 /*
 
 Notice some rules that will keep plugin approvers happy when you want
@@ -61,7 +61,7 @@ class block_superframe extends block_base {
      * Add some text content to our block.
      */
     public function get_content() {
-        global $USER, $CFG;
+        global $USER, $CFG, $OUTPUT;
 
         // Do we have any content?
         if ($this->content !== null) {
@@ -76,17 +76,29 @@ class block_superframe extends block_base {
         // OK let's add some content.
         $this->content = new stdClass();
         $this->content->footer = '';
-        $this->content->text = get_string('welcomeuser', 'block_superframe', $USER);
-        $this->content->text .= "<br />";
-        $this->content->text .= get_string('message', 'block_superframe');
+        $this->content->text = get_string('welcomeuser', 'block_superframe',
+                $USER);
+
+        // Add the blockid to the Moodle URL for the view page.
         $blockid = $this->instance->id;
+        $courseid = $this->page->course->id;
+
         $context = context_block::instance($blockid);
-        
+
         // Check the capability.
         if (has_capability('block/superframe:seeviewpage', $context)) {
-            $url = new moodle_url('/blocks/superframe/view.php', ['blockid' => $blockid]);
-            $this->content->text .= '<p>' . html_writer::link($url, get_string('viewlink', 'block_superframe')) . '</p>';
+
+            $url = new moodle_url('/blocks/superframe/view.php',
+                    ['blockid' => $blockid]);
+            $this->content->text .= '<p>' . html_writer::link($url,
+                    get_string('viewlink', 'block_superframe')) . '</p>';
         }
+
+        $users = self::get_course_users($courseid);
+        foreach ($users as $user) {
+            $this->content->text .='<li>' . $user->firstname . '</li>';
+        }
+
         return $this->content;
     }
     /**
@@ -95,10 +107,10 @@ class block_superframe extends block_base {
      */
     public function applicable_formats() {
         return array('all' => false,
-                     'site' => false,
-                     'site-index' => false,
+                     'site' => true,
+                     'site-index' => true,
                      'course-view' => true,
-                     'my' => false);
+                     'my' => true);
     }
     /**
      * Allow multiple instances of the block.
@@ -109,7 +121,23 @@ class block_superframe extends block_base {
     /**
      * Allow block configuration.
      */
-    public function has_config() {
+    function has_config() {
         return true;
+    }
+
+    private static function get_course_users($courseid) {
+        global $DB;
+
+        $sql = "SELECT u.id, u.firstname
+                FROM {course} as c
+                JOIN {context} as x ON c.id = x.instanceid
+                JOIN {role_assignments} as r ON r.contextid = x.id
+                JOIN {user} AS u ON u.id = r.userid
+               WHERE c.id = :courseid
+                 AND r.roleid = :roleid";
+
+        $records = $DB->get_records_sql($sql, ['courseid' => $courseid, 'roleid' => 5]);
+
+        return $records;
     }
 }
