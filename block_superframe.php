@@ -76,8 +76,7 @@ class block_superframe extends block_base {
         // OK let's add some content.
         $this->content = new stdClass();
         $this->content->footer = '';
-        $this->content->text = get_string('welcomeuser', 'block_superframe',
-                $USER);
+        $this->content->text = get_string('welcomeuser', 'block_superframe', $USER);
 
         // Add the blockid to the Moodle URL for the view page.
         $blockid = $this->instance->id;
@@ -94,9 +93,13 @@ class block_superframe extends block_base {
                     get_string('viewlink', 'block_superframe')) . '</p>';
         }
 
-        $users = self::get_course_users($courseid);
-        foreach ($users as $user) {
-            $this->content->text .='<li>' . $user->firstname . '</li>';
+        if (has_capability('block/superframe:seenamelist', $context)) {
+            $this->content->text .= '<ul>';
+            $users = self::get_course_users($courseid);
+            foreach ($users as $user) {
+                $this->content->text .='<li>' . self::get_image_user($user) . $user->firstname . '</li>';
+            } 
+            $this->content->text .= '</ul>';
         }
 
         return $this->content;
@@ -121,7 +124,7 @@ class block_superframe extends block_base {
     /**
      * Allow block configuration.
      */
-    function has_config() {
+    public function has_config() {
         return true;
     }
 
@@ -139,5 +142,14 @@ class block_superframe extends block_base {
         $records = $DB->get_records_sql($sql, ['courseid' => $courseid, 'roleid' => 5]);
 
         return $records;
+    }
+
+    private static function get_image_user($user) {
+        global $DB, $OUTPUT;
+
+        $user = $DB->get_record('user', array('id' => $user->id));
+        $icon = $OUTPUT->user_picture($user);
+
+        return $icon;
     }
 }

@@ -50,6 +50,7 @@ $string['pagelayout_details'] = 'Select a preferred page layout';
 $string['superframe:addinstance'] = 'Add a new Super frame block';
 $string['superframe:myaddinstance'] = 'Add a new Super frame block to my moodle';
 $string['superframe:seeviewpage'] = 'Access the view page';
+$string['superframe:seenamelist'] = 'Access the list of names';
 
 // Edit form strings.
 $string['size'] = 'Select a size for your iframe';
