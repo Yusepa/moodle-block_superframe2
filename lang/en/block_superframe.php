@@ -60,3 +60,4 @@ $string['width'] = 'Width';
 $string['width_details'] = 'Width of the frame (px)';
 $string['pagelayout'] = 'Page layout';
 $string['pagelayout_details'] = 'Select a preferred page layout';
+$string['returncourse'] = 'Back to the Course';
