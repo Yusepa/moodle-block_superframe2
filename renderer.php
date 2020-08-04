@@ -45,4 +45,22 @@ class block_superframe_renderer extends plugin_renderer_base {
         // Finish the page.
         echo $this->output->footer();
     }
+
+    function fetch_block_content($blockid) {
+        global $USER;
+
+        $data = new stdClass();
+        
+        
+        $context = context_block::instance($blockid);
+
+        $data->welcometxt = get_string('welcomeuser', 'block_superframe', $USER);
+        $data->userPicture = $this->user_picture($USER);
+        $data->sms = get_string('message', 'block_superframe');
+        $data->url = new moodle_url('/blocks/superframe/view.php', ['blockid' => $blockid]);
+        $data->linktxt = get_string('viewlink', 'block_superframe');
+
+        // Render the data in a Mustache template.
+        return $this->render_from_template('block_superframe/blockcontent', $data);
+    }
 }

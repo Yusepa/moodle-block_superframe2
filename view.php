@@ -50,6 +50,7 @@ if ($configdata) {
 }
 
 
+
 // URL - comes either from instance or admin.
 $url = $config->url;
 // Let's set up the iframe attributes.
