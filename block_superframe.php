@@ -30,6 +30,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
+require_once("$CFG->libdir/formslib.php");
 
 /*
 
@@ -86,6 +87,11 @@ class block_superframe extends block_base {
             $renderer = $this->page->get_renderer('block_superframe');
             $this->content->text = $renderer->fetch_block_content($blockid, $courseid);
         }
+        if (has_capability('block/superframe:seenamelist', $context)) {
+            $renderer = $this->page->get_renderer('block_superframe');
+            $users = self::get_course_users($courseid);
+            $this->content->text .= $renderer->fetch_block_content_list($users);
+        }
         return $this->content;
     }
     /**
@@ -110,5 +116,30 @@ class block_superframe extends block_base {
      */
     public function has_config() {
         return true;
+    }
+    
+    private static function get_course_users($courseid) {
+        global $DB;
+        
+        $sql = "SELECT u.id, u.firstname, u.lastname
+                FROM {course} as c
+                JOIN {context} as x ON c.id = x.instanceid
+                JOIN {role_assignments} as r ON r.contextid = x.id
+                JOIN {user} AS u ON u.id = r.userid
+               WHERE c.id = :courseid
+                 AND r.roleid = :roleid";
+
+        $records = $DB->get_records_sql($sql, ['courseid' => $courseid, 'roleid' => 5]);
+        
+        return $records;
+    }
+
+    private static function get_image_user($user) {
+        global $DB, $OUTPUT;
+
+        $user = $DB->get_record('user', array('id' => $user->id));
+        $icon = $OUTPUT->user_picture($user);
+
+        return $icon;
     }
 }

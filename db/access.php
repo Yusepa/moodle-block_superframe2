@@ -67,4 +67,18 @@ $capabilities = array(
             'guest' => CAP_PREVENT
         )
     ),
+
+    // Restrict access to name's list.
+    'block/superframe:seenamelist' => array(
+        'riskbitmask' => RISK_PERSONAL,
+     
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_COURSE,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW,
+            'student' => CAP_PREVENT,
+            'guest' => CAP_PREVENT
+        )
+    )
 );

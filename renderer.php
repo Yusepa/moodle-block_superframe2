@@ -65,4 +65,21 @@ class block_superframe_renderer extends plugin_renderer_base {
         // Render the data in a Mustache template.
         return $this->render_from_template('block_superframe/blockcontent', $data);
     }
+    
+    function fetch_block_content_list($users) {
+        global $OUTPUT, $DB;
+
+        $usuarios = array();
+        foreach ($users as $user) {
+            $rs = $DB->get_record_select("user", "id = '$user->id'", null, user_picture::fields());
+            array_push($usuarios,['image'=> $OUTPUT->user_picture($rs), 'name'=> $user->firstname]);
+        } 
+
+        $data->students = $usuarios;
+
+        // Render the data in a Mustache template.
+        return $this->render_from_template('block_superframe/listofusers', $data);
+
+        return $text;
+    }
 }
