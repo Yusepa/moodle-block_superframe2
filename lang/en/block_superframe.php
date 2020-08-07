@@ -50,6 +50,7 @@ $string['large'] = 'Large';
 $string['message'] = 'I am a great developer';
 $string['viewlink'] = 'View page';
 $string['picture'] = 'Show picture';
+$string['poptext'] = 'View table';
 
 // Settings strings.
 $string['headerconfig'] = 'New settings - Super frame';
@@ -63,3 +64,11 @@ $string['width_details'] = 'Width of the frame (px)';
 $string['pagelayout'] = 'Page layout';
 $string['pagelayout_details'] = 'Select a preferred page layout';
 $string['returncourse'] = 'Back to the Course';
+
+
+// Table strings.
+$string['tablecaption'] = 'USERS';
+$string['blockid'] = 'ID';
+$string['blockname'] = 'Name';
+$string['course'] = 'Course';
+$string['catname'] = 'Catname';
