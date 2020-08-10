@@ -67,7 +67,7 @@ $string['returncourse'] = 'Back to the Course';
 
 
 // Table strings.
-$string['tablecaption'] = 'USERS';
+$string['tablecaption'] = 'BLOCKS';
 $string['blockid'] = 'ID';
 $string['blockname'] = 'Name';
 $string['course'] = 'Course';
