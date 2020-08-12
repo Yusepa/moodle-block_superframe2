@@ -52,6 +52,7 @@ $string['viewlink'] = 'View page';
 $string['picture'] = 'Show picture';
 $string['poptext'] = 'View table';
 $string['tabletext'] = 'Table editing';
+$string['userlink'] = 'Installed blocks';
 
 // Settings strings.
 $string['headerconfig'] = 'New settings - Super frame';
