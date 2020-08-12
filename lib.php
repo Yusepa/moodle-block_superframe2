@@ -29,3 +29,14 @@ function block_superframe_extend_navigation_course($navigation, $course, $contex
                 get_string('userlink', 'block_superframe'), 'superframe',
                 new pix_icon('icon', '', 'block_superframe'));
 }
+
+function block_superframe_myprofile_navigation(core_user\output\myprofile\tree $tree,
+        $user, $iscurrentuser, $course) {
+    global $USER;
+
+        $url = new moodle_url('/blocks/superframe/block_data.php');
+        $node = new core_user\output\myprofile\node('miscellaneous', 'superframe',
+                get_string('userlink', 'block_superframe'), null, $url);
+        $tree->add_node($node);
+        return true;
+}
