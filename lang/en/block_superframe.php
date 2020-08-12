@@ -51,6 +51,7 @@ $string['message'] = 'I am a great developer';
 $string['viewlink'] = 'View page';
 $string['picture'] = 'Show picture';
 $string['poptext'] = 'View table';
+$string['tabletext'] = 'Table editing';
 
 // Settings strings.
 $string['headerconfig'] = 'New settings - Super frame';
