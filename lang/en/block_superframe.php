@@ -41,10 +41,10 @@ $string['superframe:seenamelist'] = 'Access the list of names';
 
 // Edit form strings.
 $string['size'] = 'Select a size for your iframe';
-$string['custom'] = 'Custom';
-$string['small'] = 'Small';
-$string['medium'] = 'Medium';
-$string['large'] = 'Large';
+$string['custom'] = 'custom';
+$string['small'] = 'small';
+$string['medium'] = 'medium';
+$string['large'] = 'large';
 
 // Cover strings.
 $string['message'] = 'I am a great developer';
