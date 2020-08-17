@@ -74,8 +74,10 @@ class block_superframe_renderer extends plugin_renderer_base {
         
         
         $context = context_block::instance($blockid);
-
-        $data->welcometxt = get_string('welcomeuser', 'block_superframe', $USER);
+        $name = $USER->firstname . ' ' . $USER->lastname;
+        $this->page->requires->js_call_amd('block_superframe/test_amd', 'init', ['name' => $name]);
+        $data->headingclass = 'block_superframe_heading';
+        $data->welcometxt = get_string('welcomeuser', 'block_superframe', $name);
         $data->userPicture = $this->user_picture($USER);
         $data->sms = get_string('message', 'block_superframe');
         $data->url = new moodle_url('/blocks/superframe/view.php', ['blockid' => $blockid, 'courseid' =>  $courseid]);
