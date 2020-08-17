@@ -27,6 +27,7 @@ class block_superframe_renderer extends plugin_renderer_base {
         global $USER;
    
         $data = new stdClass();
+        $this->page->requires->js_call_amd('block_superframe/amd_modal', 'init');
 
         // Page heading and iframe data.
         $data->heading = get_string('pluginname', 'block_superframe');
@@ -37,7 +38,8 @@ class block_superframe_renderer extends plugin_renderer_base {
         $data->userPicture = $this->user_picture($USER);
         $data->returnlink = new moodle_url('/course/view.php', ['id' => $id]);
         $data->returntext = get_string('returncourse', 'block_superframe');
-
+        $data->modallinktext = get_string('about', 'block_superframe');
+        
         // Text for the links and the size parameter.
         $strings = array();
         $strings[] = get_string('custom', 'block_superframe');
